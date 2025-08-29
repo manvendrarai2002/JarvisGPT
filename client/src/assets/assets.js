@@ -1,6 +1,7 @@
 import logo from "./logo.svg";
-import logo_full from "./logo_full.svg";
-import logo_full_dark from "./logo_full_dark.svg";
+import logonew from "./logo.png";
+import logo_full_white from "./logo_full_white.png";
+import logo_full_dark from "./logo_full_dark.png";
 import search_icon from "./search_icon.svg";
 import user_icon from "./user_icon.svg";
 import theme_icon from "./theme_icon.svg";
@@ -13,7 +14,6 @@ import bin_icon from "./bin_icon.svg";
 import logout_icon from "./logout_icon.svg";
 import diamond_icon from "./diamond_icon.svg";
 import gallery_icon from "./gallery_icon.svg";
-
 import ai_image1 from "./ai_image1.jpg";
 import ai_image2 from "./ai_image2.jpg";
 import ai_image3 from "./ai_image3.jpg";
@@ -29,7 +29,9 @@ import ai_image12 from "./ai_image12.jpg";
 
 export const assets = {
     logo,
-    logo_full,
+    logonew,
+    logo_full_white,
+    logo_full_dark,
     search_icon,
     user_icon,
     theme_icon,
@@ -40,7 +42,6 @@ export const assets = {
     close_icon,
     bin_icon,
     logout_icon,
-    logo_full_dark,
     diamond_icon,
     gallery_icon
 };
