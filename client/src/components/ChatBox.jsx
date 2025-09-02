@@ -72,9 +72,9 @@ const ChatBox = () => {
       {/* Chat Messages */}
       <div ref={containerRef} className='flex-1 mb-5 overflow-y-scroll overflow-x-hidden'>
         {messages.length === 0 && (
-          <div className='h-full flex flex-col items-center justify-center gap-2 text-primary'>
+          <div className='h-full flex flex-col items-center justify-center gap-2 text-white'>
             <img src={theme === 'dark' ? assets.logo_full_dark : assets.logo_full_white} alt="" className='w-full max-w-56 sm:max-w-68'/>
-            <p className='mt-5 text-4xl sm:text-6xl text-center text-gray-400 dark:text-white'>Ask me anything.</p>
+            <p className='mt-5 text-3xl sm:text-5xl text-center text-black dark:text-white'>Where Work Meets Intelligence</p>
           </div>
         )}
 
@@ -98,14 +98,14 @@ const ChatBox = () => {
           )}
 
          {/* Prompt Input Box */}
-         <form onSubmit={onSubmit} className=' bg-primary/20 dark:bg-[#583C79]/30 border border-primary dark:border-[#80609F]/30 rounded-full w-full max-w-2xl p-3 pl-4 mx-auto flex gap-4 items-center mb-2'>
+         <form onSubmit={onSubmit} className=' bg-blue-600/10 dark:border-[#80609F]/50 border border-primary rounded-full w-full max-w-2xl p-3 pl-4 mx-auto flex gap-4 items-center mb-2'>
           <select onChange={(e)=> setMode(e.target.value)} value={mode} className='text-sm pl-3 pr-2 outline-none cursor-pointer '>
-            <option className='cursor-pointer dark:bg-purple-900 ' value="text">Text</option>
-            <option className='cursor-pointer dark:bg-purple-900' value="image">Image</option>
+            <option className='cursor-pointer dark:bg-blue-900 ' value="text">Text</option>
+            <option className='cursor-pointer dark:bg-blue-900' value="image">Image</option>
           </select>
           <input onChange={(e)=> setPrompt(e.target.value)} value={prompt} type="text" placeholder='Type your prompt here...' className='flex-1 w-full text-sm outline-none' required/>
           <button type="submit" disabled={loading}>
-            <img src={loading ? assets.stop_icon : assets.send_icon} className='w-8 cursor-pointer' alt=""/>
+            <img src={loading ? assets.stop_icon_darkblue : assets.send_icon_darkblue} className='w-8 cursor-pointer' alt=""/>
           </button>
          </form>
     </div>

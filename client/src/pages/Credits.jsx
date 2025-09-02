@@ -54,10 +54,10 @@ const Credits = () => {
 
       <div className='flex flex-wrap justify-center gap-8'> 
         {plans.map((plan)=> (
-          <div key={plan._id} className={`border border-gray-200 dark:border-purple-700 rounded-lg shadow hover:shadow-lg transition-shadow p-6 min-w-[300px] flex flex-col ${plan._id === "pro" ? "bg-purple-50 dark:bg-purple-900" : "bg-white dark:bg-transparent"}`}>
+          <div key={plan._id} className={`border border-gray-200 dark:border-blue-700 rounded-lg shadow hover:shadow-lg transition-shadow p-6 min-w-[300px] flex flex-col dark:bg-transparent"}`}>
             <div className='flex-1'>
               <h3 className='text-xl font-semibold text-gray-900 dark:text-white mb-2'>{plan.name}</h3>
-              <p className='text-2xl font-bold text-purple-600 dark:text-purple-300 mb-4'>${plan.price}
+              <p className='text-2xl font-bold text-blue-600 dark:text-purple-300 mb-4'>${plan.price}
                 <span className='text-base font-normal text-gray-600 dark:text-purple-200'>{' '}/ {plan.credits} credits</span>
               </p>
 
@@ -67,7 +67,7 @@ const Credits = () => {
                 ))}
               </ul>
             </div>
-            <button onClick={()=> toast.promise(purchasePlan(plan._id), {loading: 'Processing...'})} className='mt-6 bg-purple-600 hover:bg-purple-700 active:bg-purple-800 text-white font-medium py-2 rounded transition-colors cursor-pointer'>Buy Now</button>
+            <button onClick={()=> toast.promise(purchasePlan(plan._id), {loading: 'Processing...'})} className='mt-6 bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white font-medium py-2 rounded transition-colors cursor-pointer'>Buy Now</button>
           </div>
         ))}
       </div>

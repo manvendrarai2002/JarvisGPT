@@ -40,7 +40,7 @@ const Sidebar = ({isMenuOpen, setIsMenuOpen}) => {
       <img src={theme === 'dark' ? assets.logo_full_dark : assets.logo_full_white} alt="" className='w-full max-w-48'/>
 
       {/* New Chat Button */}
-      <button onClick={createNewChat} className='flex justify-center items-center w-full py-2 mt-10 text-white bg-gradient-to-r from-[#A456F7] to-[#3D81F6] text-sm rounded-md cursor-pointer'>
+      <button onClick={createNewChat} className='flex justify-center items-center w-full py-2 mt-10 text-white bg-gradient-to-r from-[#364ee9] to-[#3D81F6] text-sm rounded-md cursor-pointer'>
         <span className='mr-2 text-xl'>+</span> New Chat
       </button>
 
@@ -93,7 +93,7 @@ const Sidebar = ({isMenuOpen, setIsMenuOpen}) => {
             </div>
             <label className='relative inline-flex cursor-pointer'>
                 <input onChange={()=> setTheme(theme === 'dark' ? 'light' : 'dark')} type="checkbox" className='sr-only peer' checked={theme === 'dark'} />
-                <div className='w-9 h-5 bg-gray-400 rounded-full peer-checked:bg-purple-600 transition-all'>
+                <div className='w-9 h-5 bg-gray-400 rounded-full peer-checked:bg-green-600 transition-all'>
                 </div>
                 <span className='absolute left-1 top-1 w-3 h-3 bg-white rounded-full transition-transform peer-checked:translate-x-4'></span>
             </label>
@@ -101,8 +101,8 @@ const Sidebar = ({isMenuOpen, setIsMenuOpen}) => {
 
         {/* User Account */}
         <div className='flex items-center gap-3 p-3 mt-4 border border-gray-300 dark:border-white/15 rounded-md group'>
-            <img src={assets.user_icon} className='w-7 rounded-full cursor-pointer' alt=""/>
-            <p className='flex-1 text-sm dark:text-primary truncate cursor-pointer'>{user ? user.name : 'Login your account'}</p>
+            <img src={assets.user_icon_darkblue} className='w-7 rounded-full cursor-pointer' alt=""/>
+            <p className='flex-1 text-sm dark:text-white truncate cursor-pointer'>{user ? user.name : 'Login your account'}</p>
             {user && <img onClick={logout} src={assets.logout_icon} className='h-5 cursor-pointer not-dark:invert group-hover:block'/>}
         </div>
 

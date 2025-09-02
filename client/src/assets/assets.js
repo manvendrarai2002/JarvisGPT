@@ -3,9 +3,12 @@ import logo_full_white from "./logo_full_white.png";
 import logo_full_dark from "./logo_full_dark.png";
 import search_icon from "./search_icon.svg";
 import user_icon from "./user_icon.svg";
+import user_icon_darkblue from "./user_icon_darkblue.svg";
 import theme_icon from "./theme_icon.svg";
 import send_icon from "./send_icon.svg";
 import stop_icon from "./stop_icon.svg";
+import send_icon_darkblue from "./send_icon_darkblue.svg";
+import stop_icon_darkblue from "./stop_icon_darkblue.svg";
 import mountain_img from "./mountain_img.jpg";
 import menu_icon from "./menu_icon.svg";
 import close_icon from "./close_icon.svg";
@@ -31,10 +34,10 @@ export const assets = {
     logo_full_white,
     logo_full_dark,
     search_icon,
-    user_icon,
+    user_icon_darkblue,
     theme_icon,
-    send_icon,
-    stop_icon,
+    send_icon_darkblue,
+    stop_icon_darkblue,
     mountain_img,
     menu_icon,
     close_icon,
