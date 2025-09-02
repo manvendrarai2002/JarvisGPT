@@ -1,4 +1,3 @@
-import logo from "./logo.svg";
 import logonew from "./logo.png";
 import logo_full_white from "./logo_full_white.png";
 import logo_full_dark from "./logo_full_dark.png";
@@ -28,7 +27,6 @@ import ai_image11 from "./ai_image11.jpg";
 import ai_image12 from "./ai_image12.jpg";
 
 export const assets = {
-    logo,
     logonew,
     logo_full_white,
     logo_full_dark,
