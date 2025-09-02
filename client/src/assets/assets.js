@@ -2,11 +2,8 @@ import logonew from "./logo.png";
 import logo_full_white from "./logo_full_white.png";
 import logo_full_dark from "./logo_full_dark.png";
 import search_icon from "./search_icon.svg";
-import user_icon from "./user_icon.svg";
 import user_icon_darkblue from "./user_icon_darkblue.svg";
 import theme_icon from "./theme_icon.svg";
-import send_icon from "./send_icon.svg";
-import stop_icon from "./stop_icon.svg";
 import send_icon_darkblue from "./send_icon_darkblue.svg";
 import stop_icon_darkblue from "./stop_icon_darkblue.svg";
 import mountain_img from "./mountain_img.jpg";
@@ -27,7 +24,6 @@ import ai_image8 from "./ai_image8.jpg";
 import ai_image9 from "./ai_image9.jpg";
 import ai_image10 from "./ai_image10.jpg";
 import ai_image11 from "./ai_image11.jpg";
-import ai_image12 from "./ai_image12.jpg";
 
 export const assets = {
     logonew,
