@@ -21,7 +21,7 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.18.0",
     "openai": "^5.16.0",
-    "stripe": "^18.5.0",
+    "razorpay": "^2.9.6",
     "svix": "^1.75.0"
   },
   "devDependencies": {

@@ -74,7 +74,7 @@ const ChatBox = () => {
         {messages.length === 0 && (
           <div className='h-full flex flex-col items-center justify-center gap-2 text-white'>
             <img src={theme === 'dark' ? assets.logo_full_dark : assets.logo_full_white} alt="" className='w-full max-w-56 sm:max-w-68'/>
-            <p className='mt-5 text-3xl sm:text-5xl text-center text-black dark:text-white'>Where Work Meets Intelligence</p>
+            <p className='mt-5 text-3xl sm:text-5xl text-center text-black dark:text-white'>Simply intelligent</p>
           </div>
         )}
 
