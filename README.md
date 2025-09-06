@@ -7,7 +7,6 @@ Welcome to Jarvis GPT! This is a powerful, full-stack MERN application that brin
 - **Conversational AI**: Engage in natural, human-like conversations for everything from answering questions to brainstorming ideas.
 - **Text & Image Generation**: Go beyond words and create stunning images from simple text prompts.
 - **Credit System**: A built-in usage-based credit system to manage AI interactions.
-- **Community Gallery**: Share your AI-generated images with the community and see what others are creating.
 - **Modern UI**: A clean, responsive interface with a beautiful theme toggle for dark and light modes.
 
 ## �️ Technology Powering Jarvis GPT
