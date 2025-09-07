@@ -1,96 +1,120 @@
 # Jarvis GPT – Your Personal AI Conversational Chatbot
 
-Welcome to Jarvis GPT! This is a powerful, full-stack MERN application that brings a conversational AI to your fingertips, powered by the Gemini API. It's designed to be more than just a chatbot—it's a creative partner that can generate both text and images. The interface is sleek, modern, and includes both dark and light modes to suit your preference.
+Welcome to **Jarvis GPT** 🎉  
+A powerful full-stack **MERN application** that brings conversational AI to your fingertips, powered by the **Google Gemini API**.  
 
-## 🚀 Core Features
-
-- **Conversational AI**: Engage in natural, human-like conversations for everything from answering questions to brainstorming ideas.
-- **Text & Image Generation**: Go beyond words and create stunning images from simple text prompts.
-- **Credit System**: A built-in usage-based credit system to manage AI interactions.
-- **Modern UI**: A clean, responsive interface with a beautiful theme toggle for dark and light modes.
-
-## �️ Technology Powering Jarvis GPT
-
-- **Frontend**: **React** (with Vite for a lightning-fast development experience)
-- **Backend**: **Node.js** & **Express.js**
-- **Database**: **MongoDB** (to store user data, chat history, credits, and images)
-- **AI Engine**: **Google's Gemini API**
+Jarvis is more than just a chatbot—it’s your **creative partner** capable of generating both text and images. The app also features a **credit system** and **Razorpay integration** for premium plans. The UI is sleek, modern, and supports both **dark and light themes**.  
 
 ---
 
-## 🏁 Getting Started: Setting Up Your Local Environment
+## 🚀 Core Features
 
-Follow these steps to get Jarvis GPT running on your own machine.
+- 🤖 **Conversational AI** – Engage in natural, human-like conversations.  
+- 🖼 **Text & Image Generation** – Create stunning images from simple prompts.  
+- 💳 **Credit System** – Track and manage usage via credits.  
+- 🎨 **Modern UI** – Clean, responsive design with dark/light mode toggle.  
+- 💰 **Payments** – Integrated with **Razorpay** for secure transactions.  
 
-### 1. Prerequisites
+---
 
-Make sure you have the following installed:
-- **Node.js**: The runtime for our JavaScript code. You can download it from [nodejs.org](https://nodejs.org/).
-- **MongoDB**: A database to store all your application data. You can use a local installation or a cloud service like MongoDB Atlas.
-- **Git**: For cloning the repository.
+## 🛠️ Tech Stack
 
-### 2. Clone the Repository
+- **Frontend**: React + Vite  
+- **Backend**: Node.js + Express.js  
+- **Database**: MongoDB (Atlas/local)  
+- **AI Engine**: Google Gemini API  
+- **Payments**: Razorpay  
 
-First, grab the code from GitHub by running this command in your terminal:
+---
+
+## 📸 Screenshots  
+
+| Login & Sign Up | Main Chat Interface |
+| :---: | :---: |
+<img width="703" height="396" alt="image" src="https://github.com/user-attachments/assets/87abc993-2a39-49eb-9340-1513c6b42112" />
+ |<img width="698" height="395" alt="image" src="https://github.com/user-attachments/assets/b027cfdf-8890-4140-9616-e76ea0f5cc37" />
+
+
+| Credit Plans & Payment | Payment Confirmation |
+| :---: | :---: |
+| ![Plans](/mnt/data/screenshots/screenshot_3.png) | ![Payment](/mnt/data/screenshots/screenshot_4.png) |
+
+---
+
+## 🏁 Getting Started: Run Locally  
+
+### 1. Prerequisites  
+
+Install the following:  
+- [Node.js](https://nodejs.org)  
+- [MongoDB](https://www.mongodb.com) (local or Atlas)  
+- [Git](https://git-scm.com)  
+
+### 2. Clone Repository  
+
 ```bash
 git clone https://github.com/manvendrarai2002/manvendrarai2002.git
 cd manvendrarai2002
 ```
 
-### 3. Backend Setup (The Server)
+### 3. Backend Setup  
 
-The backend is the brain of the operation. It handles user authentication, connects to the database, and communicates with the Gemini AI.
-
-**a. Navigate to the server directory and install dependencies:**
 ```bash
 cd server
 npm install
 ```
 
-**b. Create your environment file:**
-Create a new file named `.env` in the `server` directory. This is where you'll store all your secret keys and configuration variables.
+Create a `.env` file inside `server/` with:
 
-**c. Add the following variables to your `.env` file:**
 ```env
-# Your MongoDB connection string
 MONGODB_URI="your_mongodb_connection_string_here"
-
-# A secret key for creating JSON Web Tokens (JWT) for authentication
-# You can generate a strong one here: https://www.grc.com/passwords.htm
 JWT_SECRET="your_super_secret_jwt_key"
-
-# Your Google Gemini API Key for AI text generation
 GEMINI_API_KEY="your_gemini_api_key_here"
-
-# Your Razorpay API keys for the payment system
 RAZORPAY_KEY_ID="your_razorpay_key_id"
 RAZORPAY_KEY_SECRET="your_razorpay_key_secret"
 ```
 
-**d. Start the backend server:**
+Run backend:
+
 ```bash
 npm start
 ```
-If everything is configured correctly, you'll see a message in the terminal: `Database connected` and `Server is running on port 3000`.
 
-### 4. Frontend Setup (The Client)
+If successful, you’ll see:  
+```
+Database connected
+Server is running on port 3000
+```
 
-The frontend is the beautiful interface you'll interact with.
+### 4. Frontend Setup  
 
-**a. Open a new terminal window.** Navigate to the `client` directory from the project's root folder and install its dependencies:
 ```bash
 cd client
 npm install
-```
-
-**b. Start the frontend development server:**
-```bash
 npm run dev
 ```
-This will launch the React application. The terminal will give you a local URL to open in your browser, usually `http://localhost:5173`.
 
-The frontend is already configured to talk to the backend (running on port 3000) via a proxy, so you don't need to configure any additional URLs for local development.
+Frontend runs on `http://localhost:5173` and connects to backend (port 3000) via proxy.
 
-### You're All Set!
+---
 
-Your Jarvis GPT application should now be running locally. Open the URL from the frontend terminal in your browser, create an account, and start chatting with your AI!
+## 🎉 You’re All Set!  
+
+Now open the app in your browser, **create an account**, and start chatting with **Jarvis GPT**.  
+
+---
+
+## ⚡ Future Improvements  
+
+- 📱 Mobile App version (React Native)  
+- 🌍 Multi-language support  
+- 👥 Team/Workspace chats  
+- 📊 Usage analytics dashboard  
+
+---
+
+## 📜 License  
+
+This project is licensed under the **MIT License**.  
+Feel free to fork and enhance Jarvis GPT! 🚀  
+
