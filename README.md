@@ -33,7 +33,8 @@ Jarvis is more than just a chatbot—it’s your **creative partner** capable of
 
 | Login & Sign Up | Main Chat Interface |
 | :---: | :---: |
-| <img width="703" alt="Login and Sign Up pages" src="https://github.com/user-attachments/assets/87abc993-2a39-49eb-9340-1513c6b42112"> | <img src="https://i.imgur.com/mYlCDo2.png" alt="Main Chat Interface" width="703"> |
+| <img width="703" alt="Login and Sign Up pages" src="https://github.com/user-attachments/assets/87abc993-2a39-49eb-9340-1513c6b42112"> |<img width="610" height="382" alt="image" src="https://github.com/user-attachments/assets/096c5b55-6841-4563-836f-b8c23faed915" />
+
 | Chat Demo | Credit Plans & Payment |
 | :---: | :---: |
 | <img width="611" alt="Chat conversation demo" src="https://github.com/user-attachments/assets/762a16cb-56f9-42ce-95bf-a68c541a6020"> | <img width="601" alt="Credit plans and payment modal" src="https://github.com/user-attachments/assets/853ca4e1-9e77-4dda-93aa-c17fa92e4988"> |
