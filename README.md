@@ -27,25 +27,19 @@ Jarvis is more than just a chatbot—it’s your **creative partner** capable of
 
 ---
 
-## 📸 Screenshots  
+## 📸 Screenshots
 
 | Login & Sign Up | Main Chat Interface |
-<img width="703" height="396" alt="image" src="https://github.com/user-attachments/assets/87abc993-2a39-49eb-9340-1513c6b42112" />
+| :---: | :---: |
+| <img width="703" alt="Login and Sign Up pages" src="https://github.com/user-attachments/assets/87abc993-2a39-49eb-9340-1513c6b42112"> | <img width="698" alt="Main chat interface" src="https://github.com/user-attachments/assets/b027cfdf-8890-4140-9616-76ea0f5cc37"> |
 
- <img width="698" height="395" alt="image" src="https://github.com/user-attachments/assets/b027cfdf-8890-4140-9616-e76ea0f5cc37" />
+| Chat Demo | Credit Plans & Payment |
+| :---: | :---: |
+| <img width="611" alt="Chat conversation demo" src="https://github.com/user-attachments/assets/762a16cb-56f9-42ce-95bf-a68c541a6020"> | <img width="601" alt="Credit plans and payment modal" src="https://github.com/user-attachments/assets/853ca4e1-9e77-4dda-93aa-c17fa92e4988"> |
 
-
-| Main Interface | Chat Demo |
-<img width="597" height="337" alt="image" src="https://github.com/user-attachments/assets/0e282986-58c6-4e97-8f70-55fa733ce28f" />
-
- <img width="611" height="337" alt="image" src="https://github.com/user-attachments/assets/762a16cb-56f9-42ce-95bf-a68c541a6020" />
- 
-
- | Credit Plans & Payment | Payment Confirmation |
-
- <img width="601" height="788" alt="image" src="https://github.com/user-attachments/assets/853ca4e1-9e77-4dda-93aa-c17fa92e4988" />
- 
- <img width="593" height="717" alt="image" src="https://github.com/user-attachments/assets/37057397-3418-4f45-8499-92c0a2a9d29f" />
+| Payment Confirmation |
+| :---: |
+| <img width="593" alt="Payment successful confirmation" src="https://github.com/user-attachments/assets/37057397-3418-4f45-8499-92c0a2a9d29f"> |
 
 
 
