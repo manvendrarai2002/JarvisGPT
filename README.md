@@ -31,16 +31,15 @@ Jarvis is more than just a chatbot—it’s your **creative partner** capable of
 
 | Login & Sign Up | Main Chat Interface |
 | :---: | :---: |
-| <img width="703" alt="Login and Sign Up pages" src="https://github.com/user-attachments/assets/87abc993-2a39-49eb-9340-1513c6b42112"> | <img width="698" alt="Main chat interface" src="https://github.com/user-attachments/assets/b027cfdf-8890-4140-9616-76ea0f5cc37"> |
+| <img src="https://i.imgur.com/gOQ496B.png" alt="Login and Sign Up Pages" width="450"> | <img src="https://i.imgur.com/KqA4815.png" alt="Main Chat Screen" width="450"> |
 
 | Chat Demo | Credit Plans & Payment |
 | :---: | :---: |
-| <img width="611" alt="Chat conversation demo" src="https://github.com/user-attachments/assets/762a16cb-56f9-42ce-95bf-a68c541a6020"> | <img width="601" alt="Credit plans and payment modal" src="https://github.com/user-attachments/assets/853ca4e1-9e77-4dda-93aa-c17fa92e4988"> |
+| <img src="https://i.imgur.com/1E6H2uY.png" alt="Example chat with AI" width="450"> | <img src="https://i.imgur.com/vH1N70a.png" alt="Subscription plans and payment modal" width="450"> |
 
 | Payment Confirmation |
 | :---: |
-| <img width="593" alt="Payment successful confirmation" src="https://github.com/user-attachments/assets/37057397-3418-4f45-8499-92c0a2a9d29f"> |
-
+| <img src="https://i.imgur.com/4q6u25k.png" alt="Payment successful screen" width="450"> |
 
 
 
