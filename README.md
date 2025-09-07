@@ -119,8 +119,7 @@ Now open the app in your browser, **create an account**, and start chatting with
 
 ---
 
-## 📜 License  
+🙏 Acknowledgement
 
-This project is licensed under the **MIT License**.  
-Feel free to fork and enhance Jarvis GPT! 🚀  
+The payment integration was inspired by an open-source project that used Stripe. I studied that implementation and then adapted the logic for Razorpay to suit my project’s needs.
 
