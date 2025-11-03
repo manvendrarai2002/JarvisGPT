@@ -23,15 +23,16 @@
     },
     {
       "src": "/assets/(.*)",
-      "dest": "client/dist/assets/$1"
+      "headers": { "cache-control": "s-maxage=31536000,immutable" },
+      "dest": "/client/dist/assets/$1"
     },
     {
       "src": "/(.*)",
-      "handle": "filesystem"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "client/dist/index.html"
+      "missing": [
+        { "type": "file", "path": "client/dist/$1" },
+        { "type": "file", "path": "client/dist/index.html" }
+      ],
+      "dest": "/client/dist/index.html"
     }
   ]
 }
