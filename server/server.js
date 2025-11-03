@@ -1,4 +1,3 @@
-import 'dotenv/config'
 import { getApp } from './app.js'
 
 async function start() {
