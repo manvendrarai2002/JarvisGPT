@@ -24,14 +24,14 @@
     {
       "src": "/assets/(.*)",
       "headers": { "cache-control": "s-maxage=31536000,immutable" },
-      "dest": "/client/dist/assets/$1"
+      "dest": "/assets/$1"
     },
     {
       "handle": "filesystem"
     },
     {
       "src": "/(.*)",
-      "dest": "/client/dist/index.html"
+      "dest": "/index.html"
     }
   ]
 }
