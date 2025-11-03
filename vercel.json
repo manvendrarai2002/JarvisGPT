@@ -27,11 +27,10 @@
       "dest": "/client/dist/assets/$1"
     },
     {
+      "handle": "filesystem"
+    },
+    {
       "src": "/(.*)",
-      "missing": [
-        { "type": "file", "path": "client/dist/$1" },
-        { "type": "file", "path": "client/dist/index.html" }
-      ],
       "dest": "/client/dist/index.html"
     }
   ]
