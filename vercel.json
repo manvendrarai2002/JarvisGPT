@@ -22,6 +22,14 @@
       "dest": "server/api/index.js"
     },
     {
+      "src": "/assets/(.*)",
+      "dest": "client/dist/assets/$1"
+    },
+    {
+      "src": "/(.*)",
+      "handle": "filesystem"
+    },
+    {
       "src": "/(.*)",
       "dest": "client/dist/index.html"
     }
