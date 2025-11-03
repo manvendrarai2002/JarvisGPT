@@ -1,13 +1,34 @@
-import mongoose from 'mongoose'
+import mongoose from 'mongoose';
 
-const connectDB = async () => {
-    try{
-        mongoose.connection.on('connected', ()=> console.log('Database connected'))
-    await mongoose.connect(`${process.env.MONGODB_URI}/jarvisgpt`)
-    }
-    catch(error){
-        console.log(error.message)
-    }
+let cached = global.mongoose;
+
+if (!cached) {
+  cached = global.mongoose = { conn: null, promise: null };
 }
 
-export default connectDB
+const connectDB = async () => {
+  if (cached.conn) {
+    return cached.conn;
+  }
+
+  if (!cached.promise) {
+    const opts = {
+      bufferCommands: false,
+    };
+
+    cached.promise = mongoose.connect(process.env.MONGO_URI, opts).then((mongoose) => {
+      return mongoose;
+    });
+  }
+  cached.conn = await cached.promise;
+  console.log('MongoDB Connected...');
+  return cached.conn;
+};
+
+process.on('SIGINT', async () => {
+  await mongoose.connection.close();
+  console.log('MongoDB connection closed due to app termination');
+  process.exit(0);
+});
+
+export default connectDB;
