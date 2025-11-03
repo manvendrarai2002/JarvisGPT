@@ -1,4 +1,5 @@
 {
+  "$schema": "https://json.schemastore.org/package.json",
   "name": "server",
   "version": "1.0.0",
   "description": "",
@@ -22,7 +23,8 @@
     "mongoose": "^8.18.0",
     "openai": "^5.16.0",
     "razorpay": "^2.9.6",
-    "svix": "^1.75.0"
+    "svix": "^1.75.0",
+    "serverless-http": "^3.1.0"
   },
   "devDependencies": {
     "nodemon": "^3.1.10"

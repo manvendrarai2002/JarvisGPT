@@ -1,33 +1,18 @@
-import express from 'express'
 import 'dotenv/config'
-import cors from 'cors'
-import connectDB from './configs/db.js'
-import userRouter from './routes/userRoutes.js'
-import chatRouter from './routes/chatRoutes.js'
-import messageRouter from './routes/messageRouter.js'
-import creditRouter from './routes/creditRoutes.js'
-import { razorpayWebhook } from './controllers/webhooks.js'
+import { getApp } from './app.js'
 
-const app = express()
+async function start() {
+    const app = await getApp()
+    const PORT = process.env.PORT || 3000
+    app.listen(PORT, () => {
+        console.log(`Server is running on port ${PORT}`)
+    })
+}
 
-await connectDB()
-
-// Razorpay Webhooks
-app.post('/api/razorpay/webhook', express.raw({type: 'application/json'}), razorpayWebhook)
-
-// Middleware
-app.use(cors())
-app.use(express.json())
-
-// Routes
-app.get('/', (req, res)=> res.send('Server is Live!'))
-app.use('/api/user', userRouter)
-app.use('/api/chat', chatRouter)
-app.use('/api/message', messageRouter)
-app.use('/api/credit', creditRouter)
-
-const PORT = process.env.PORT || 3000
-
-app.listen(PORT, ()=>{
-    console.log(`Server is running on port ${PORT}`)
-})
+// If running locally (not inside Vercel serverless), start the HTTP server.
+if (!process.env.VERCEL) {
+    start().catch((err) => {
+        console.error('Failed to start server:', err)
+        process.exit(1)
+    })
+}
