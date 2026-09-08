@@ -1,137 +1,117 @@
 import Razorpay from 'razorpay';
 import crypto from 'crypto';
-import Transaction from "../models/Transaction.js";
-import User from '../models/User.js'; // You'll need your User model to add credits
+import Transaction from '../models/Transaction.js';
+import User from '../models/User.js';
 
-// --- IMPORTANT ---
-// The prices below are currently in USD. Razorpay primarily works with INR.
-// For this code to work, I am assuming the price is in INR (e.g., price: 10 means ₹10).
-// If you want to accept international payments, you'll need to enable it in your Razorpay dashboard.
 const plans = [
-    {
-        _id: "basic",
-        name: "Basic",
-        price: 100, // Now ₹100
-        credits: 100,
-        features: ['100 text generations', '50 image generations', 'Standard support', 'Access to basic models']
-    },
-    {
-        _id: "pro",
-        name: "Pro",
-        price: 200, // Now ₹200
-        credits: 500,
-        features: ['500 text generations', '200 image generations', 'Priority support', 'Access to pro models', 'Faster response time']
-    },
-    {
-        _id: "premium",
-        name: "Premium",
-        price: 300, // Now ₹300
-        credits: 1000,
-        features: ['1000 text generations', '500 image generations', '24/7 VIP support', 'Access to premium models', 'Dedicated account manager']
-    }
+  { _id: 'basic', name: 'Basic', price: 100, credits: 100, features: ['100 text generations', '50 image generations', 'Standard support', 'Access to basic models'] },
+  { _id: 'pro', name: 'Pro', price: 200, credits: 500, features: ['500 text generations', '200 image generations', 'Priority support', 'Access to pro models', 'Faster response time'] },
+  { _id: 'premium', name: 'Premium', price: 300, credits: 1000, features: ['1000 text generations', '500 image generations', '24/7 VIP support', 'Access to premium models', 'Dedicated account manager'] },
 ];
 
-// Initialize Razorpay instance
-// Make sure you have RAZORPAY_KEY_ID and RAZORPAY_KEY_SECRET in your .env file
 const razorpayInstance = new Razorpay({
-    key_id: process.env.RAZORPAY_KEY_ID,
-    key_secret: process.env.RAZORPAY_KEY_SECRET,
+  key_id: process.env.RAZORPAY_KEY_ID,
+  key_secret: process.env.RAZORPAY_KEY_SECRET,
 });
 
-// API Controller for getting all plans
+function signaturesMatch(expected, received) {
+  if (!expected || !received || expected.length !== received.length) return false;
+  return crypto.timingSafeEqual(Buffer.from(expected), Buffer.from(received));
+}
+
 export const getPlans = async (req, res) => {
-    try {
-        res.json({ success: true, plans });
-    } catch (error) {
-        res.status(500).json({ success: false, message: error.message });
-    }
+  return res.json({ success: true, plans });
 };
 
-// API Controller for creating a Razorpay order
 export const purchasePlan = async (req, res) => {
-    try {
-        const { planId } = req.body;
-        const plan = plans.find(p => p._id === planId);
+  try {
+    const plan = plans.find((item) => item._id === req.body?.planId);
+    if (!plan) return res.status(404).json({ success: false, message: 'Plan not found' });
 
-        if (!plan) {
-            return res.status(404).json({ success: false, message: "Plan not found" });
-        }
+    const transaction = await Transaction.create({
+      userId: req.user._id,
+      planId: plan._id,
+      amount: plan.price,
+      credits: plan.credits,
+      razorpayOrderId: `pending-${crypto.randomUUID()}`,
+      isPaid: false,
+    });
 
-        const options = {
-            amount: plan.price * 100, // Amount in the smallest currency unit (paise)
-            currency: "INR",
-            receipt: `receipt_order_${new Date().getTime()}`,
-        };
+    const order = await razorpayInstance.orders.create({
+      amount: plan.price * 100,
+      currency: 'INR',
+      receipt: transaction._id.toString(),
+      notes: { transactionId: transaction._id.toString(), planId: plan._id },
+    });
 
-        const order = await razorpayInstance.orders.create(options);
+    transaction.razorpayOrderId = order.id;
+    await transaction.save();
 
-        if (!order) {
-            return res.status(500).json({ success: false, message: "Error creating order" });
-        }
-
-        res.json({
-            success: true,
-            orderId: order.id,
-            amount: order.amount,
-            currency: order.currency,
-            keyId: process.env.RAZORPAY_KEY_ID
-        });
-
-    } catch (error) {
-        res.status(500).json({ success: false, message: error.message });
-    }
+    return res.json({
+      success: true,
+      orderId: order.id,
+      amount: order.amount,
+      currency: order.currency,
+      keyId: process.env.RAZORPAY_KEY_ID,
+      transactionId: transaction._id,
+    });
+  } catch (error) {
+    console.error('[payments/purchase]', error);
+    return res.status(500).json({ success: false, message: 'Unable to create payment order' });
+  }
 };
 
-// API Controller for verifying the payment
 export const verifyPayment = async (req, res) => {
-    try {
-        const {
-            razorpay_order_id,
-            razorpay_payment_id,
-            razorpay_signature,
-            planId // You should send this from the client
-        } = req.body;
-        
-        const userId = req.user._id;
-
-        // Find the plan to get credit details
-        const plan = plans.find(p => p._id === planId);
-        if (!plan) {
-            return res.status(404).json({ success: false, message: "Plan not found during verification" });
-        }
-        
-        // Create the signature for verification
-        const generated_signature = crypto
-            .createHmac('sha256', process.env.RAZORPAY_KEY_SECRET)
-            .update(razorpay_order_id + "|" + razorpay_payment_id)
-            .digest('hex');
-
-        if (generated_signature !== razorpay_signature) {
-            return res.status(400).json({ success: false, message: 'Payment verification failed: Invalid signature' });
-        }
-
-        // If signature is valid, payment is authentic.
-        // 1. Create a transaction record in your database.
-        await Transaction.create({
-            userId: userId,
-            planId: plan._id,
-            amount: plan.price,
-            credits: plan.credits,
-            razorpayOrderId: razorpay_order_id,
-            razorpayPaymentId: razorpay_payment_id,
-            razorpaySignature: razorpay_signature,
-            isPaid: true, // Mark as paid
-        });
-
-        // 2. Add the purchased credits to the user's account.
-        await User.findByIdAndUpdate(userId, {
-            $inc: { credits: plan.credits } // Use $inc to increment credits
-        });
-
-        res.json({ success: true, message: 'Payment verified successfully' });
-
-    } catch (error) {
-        res.status(500).json({ success: false, message: error.message });
+  try {
+    const { razorpay_order_id, razorpay_payment_id, razorpay_signature, transactionId } = req.body || {};
+    if (!razorpay_order_id || !razorpay_payment_id || !razorpay_signature || !transactionId) {
+      return res.status(400).json({ success: false, message: 'Missing payment verification fields' });
     }
+
+    const generatedSignature = crypto
+      .createHmac('sha256', process.env.RAZORPAY_KEY_SECRET)
+      .update(`${razorpay_order_id}|${razorpay_payment_id}`)
+      .digest('hex');
+
+    if (!signaturesMatch(generatedSignature, razorpay_signature)) {
+      return res.status(400).json({ success: false, message: 'Payment verification failed' });
+    }
+
+    const transaction = await Transaction.findOne({
+      _id: transactionId,
+      userId: req.user._id,
+      razorpayOrderId: razorpay_order_id,
+    });
+
+    if (!transaction) return res.status(404).json({ success: false, message: 'Transaction not found' });
+    if (transaction.isPaid) return res.json({ success: true, message: 'Payment already verified' });
+
+    // Confirm the Razorpay order belongs to the expected transaction amount/currency.
+    const order = await razorpayInstance.orders.fetch(razorpay_order_id);
+    if (order.currency !== 'INR' || Number(order.amount) !== transaction.amount * 100) {
+      return res.status(400).json({ success: false, message: 'Payment amount mismatch' });
+    }
+
+    const markedPaid = await Transaction.findOneAndUpdate(
+      { _id: transaction._id, userId: req.user._id, isPaid: false },
+      {
+        $set: {
+          isPaid: true,
+          razorpayPaymentId: razorpay_payment_id,
+          razorpaySignature: razorpay_signature,
+        },
+      },
+      { new: true }
+    );
+
+    if (!markedPaid) return res.json({ success: true, message: 'Payment already verified' });
+
+    await User.findByIdAndUpdate(markedPaid.userId, { $inc: { credits: markedPaid.credits } });
+    return res.json({ success: true, message: 'Payment verified successfully' });
+  } catch (error) {
+    console.error('[payments/verify]', error);
+    return res.status(500).json({ success: false, message: 'Unable to verify payment' });
+  }
 };
 
+export { plans };
