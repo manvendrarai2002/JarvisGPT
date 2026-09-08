@@ -16,20 +16,30 @@ export async function getApp() {
 
   const app = express()
 
-  // Ensure DB connected only once per lambda warm instance
   if (!_dbConnected) {
     await connectDB()
     _dbConnected = true
   }
 
-  // Razorpay Webhooks (raw body must be parsed before json middleware)
-  app.post('/api/razorpay/webhook', express.raw({ type: 'application/json' }), razorpayWebhook)
+  // Razorpay signs the exact raw request body. Keep this route before JSON parsing.
+  app.post('/api/razorpay/webhook', express.raw({ type: 'application/json', limit: '256kb' }), razorpayWebhook)
 
-  // Middleware
-  app.use(cors())
-  app.use(express.json())
+  const allowedOrigins = (process.env.CORS_ORIGIN || 'http://localhost:5173')
+    .split(',')
+    .map((origin) => origin.trim())
+    .filter(Boolean)
 
-  // Routes
+  app.disable('x-powered-by')
+  app.use(cors({ origin: allowedOrigins, credentials: true }))
+  app.use(express.json({ limit: '256kb' }))
+  app.use((req, res, next) => {
+    res.setHeader('X-Content-Type-Options', 'nosniff')
+    res.setHeader('X-Frame-Options', 'DENY')
+    res.setHeader('Referrer-Policy', 'no-referrer')
+    next()
+  })
+
+  app.get('/api/health', (req, res) => res.json({ ok: true, ts: Date.now() }))
   app.get('/', (req, res) => res.send('Server is Live!'))
   app.use('/api/user', userRouter)
   app.use('/api/chat', chatRouter)
