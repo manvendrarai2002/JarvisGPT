@@ -6,13 +6,11 @@ import toast from 'react-hot-toast'
 const Credits = () => {
   const [plans, setPlans] = useState([])
   const [loading, setLoading] = useState(true)
-  const { axios, token, user } = useAppContext()
+  const { axios, token, user, fetchUser } = useAppContext()
 
   const fetchPlans = async () => {
     try {
-      const { data } = await axios.get('/api/credit/plan', {
-        headers: { Authorization: token },
-      })
+      const { data } = await axios.get('/api/credit/plan', { headers: { Authorization: token } })
       if (data.success) setPlans(data.plans)
       else toast.error(data.message || 'Failed to fetch plans.')
     } catch (error) {
@@ -48,7 +46,7 @@ const Credits = () => {
 
             if (verificationResponse.data.success) {
               toast.success('Payment successful! Credits added.')
-              await useAppContext().fetchUser()
+              await fetchUser()
             } else {
               toast.error('Payment verification failed.')
             }
