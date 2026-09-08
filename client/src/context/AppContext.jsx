@@ -8,7 +8,6 @@ axios.defaults.baseURL = import.meta.env.VITE_SERVER_URL
 const AppContext = createContext()
 
 export const AppContextProvider = ({children}) => {
-
     const navigate = useNavigate();
     const [user, setUser] = useState(null);
     const [chats, setChats] = useState([]);
@@ -20,16 +19,11 @@ export const AppContextProvider = ({children}) => {
     const fetchUser = async () => {
         try {
             const {data} = await axios.get('/api/user/data', {headers: {Authorization: token}})
-
-            if(data.success){
-                setUser(data.user)
-            }
-            else{
-                toast.error(data.message)
-            }
+            if(data.success) setUser(data.user)
+            else toast.error(data.message)
         } catch (error) {
             toast.error(error.message)
-        } finally{
+        } finally {
             setLoadingUser(false)
         }
     }
@@ -48,20 +42,14 @@ export const AppContextProvider = ({children}) => {
     const fetchUserChats = async () => {
         try {
             const {data} = await axios.get('/api/chat/get', {headers: {Authorization: token}})
-
             if(data.success){
                 setChats(data.chats)
-
-                // If the user has no chats, create one
                 if(data.chats.length === 0){
                     await createNewChat();
                     return fetchUserChats();
                 }
-                else{
-                    setSelectedChat(data.chats[0])
-                }
-            }
-            else{
+                setSelectedChat(data.chats[0])
+            } else {
                 toast.error(data.message)
             }
         } catch (error) {
@@ -70,42 +58,31 @@ export const AppContextProvider = ({children}) => {
     }
 
     useEffect(() => {
-        if(theme === 'dark'){
-            document.documentElement.classList.add('dark');
-        }
-        else{
-            document.documentElement.classList.remove('dark');
-        }
-        localStorage.setItem('theme', theme) // save it into the localStorage
+        document.documentElement.classList.toggle('dark', theme === 'dark');
+        localStorage.setItem('theme', theme)
     }, [theme])
 
     useEffect(() => {
-        if(user){
-            fetchUserChats()
-        }
-        else{
+        if(user) fetchUserChats()
+        else {
             setChats([])
             setSelectedChat(null)
         }
     }, [user])
 
-    useEffect(()=> {
-        if(token){
-            fetchUser();
-        }
-        else{
+    useEffect(() => {
+        if(token) fetchUser();
+        else {
             setUser(null);
             setLoadingUser(false);
         }
     }, [token])
 
-    const value = {navigate, user, setUser, fetchUser, chats, setChats, selectedChat, setSelectedChat, theme, setTheme, createNewChat, loadingUser, fetchUserChats, token, setToken, axios } // object
+    const value = {navigate, user, setUser, fetchUser, chats, setChats, selectedChat, setSelectedChat, theme, setTheme, createNewChat, loadingUser, fetchUserChats, token, setToken, axios}
 
-    return (
-        <AppContext.Provider value={value}>
-            {children}
-        </AppContext.Provider>
-    )
+    return <AppContext.Provider value={value}>{children}</AppContext.Provider>
 }
 
+// The provider and its hook intentionally share this module for the existing app API.
+// eslint-disable-next-line react-refresh/only-export-components
 export const useAppContext = () => useContext(AppContext)
