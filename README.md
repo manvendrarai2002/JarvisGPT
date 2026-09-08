@@ -1,57 +1,68 @@
 # JarvisGPT 🤖
 
-A full-stack AI application built with React, Node.js, Express and MongoDB. JarvisGPT combines conversational AI, image generation, usage credits and Razorpay payments in one web application.
+A full-stack AI application that combines conversational AI, image generation, authentication, usage credits, and Razorpay payments in one product.
 
-## ✨ Features
+## Engineering highlights
 
-- Conversational AI using the Google Gemini API
-- Text and image generation flows
-- Credit-based usage system
-- Razorpay payment integration for premium plans
-- JWT authentication
-- Responsive React UI with dark/light themes
+- Conversational AI integration through Google Gemini
+- Text and image generation workflows
+- JWT authentication and password hashing
+- Credit-based usage model
+- Razorpay order/payment integration
+- Razorpay webhook signature verification
+- MongoDB persistence with Mongoose
+- React + Vite frontend
+- Express API with configurable CORS and request limits
+- API health endpoint
 
-## 🧱 Architecture
+## Architecture
 
 ```text
 React + Vite
-     │
-     │ HTTP / API
-     ▼
-Node.js + Express
-     │
-     ├── MongoDB
-     ├── Gemini API
-     ├── Image generation provider
-     └── Razorpay
+     |
+     | HTTP
+     v
+Express API
+ |       |        |
+ |       |        +--> Razorpay
+ |       +-----------> Gemini / Image services
+ +-------------------> MongoDB
 ```
 
-## 🛠️ Tech Stack
+## Tech stack
 
 **Frontend:** React, Vite  
-**Backend:** Node.js, Express  
-**Database:** MongoDB / Mongoose  
+**Backend:** Node.js, Express.js  
+**Database:** MongoDB, Mongoose  
 **AI:** Google Gemini API  
 **Payments:** Razorpay  
-**Authentication:** JWT, bcryptjs
+**Auth:** JWT, bcryptjs
 
-## 📸 Screenshots
+## Project structure
 
-| Login / Sign Up | Chat Interface |
-|---|---|
-| ![Login](https://github.com/user-attachments/assets/87abc993-2a39-49eb-9340-1513c6b42112) | ![Chat](https://github.com/user-attachments/assets/096c5b55-6841-4563-836f-b8c23faed915) |
+```text
+JarvisGPT/
+├── client/              # React + Vite frontend
+├── server/
+│   ├── configs/         # Database/service configuration
+│   ├── controllers/     # Request and business logic
+│   ├── middlewares/     # Authentication middleware
+│   ├── models/          # Mongoose models
+│   ├── routes/          # API routes
+│   ├── app.js
+│   ├── server.js
+│   └── .env.example
+└── README.md
+```
 
-| Chat Demo | Credit Plans |
-|---|---|
-| ![Chat Demo](https://github.com/user-attachments/assets/762a16cb-56f9-42ce-95bf-a68c541a6020) | ![Credit Plans](https://github.com/user-attachments/assets/853ca4e1-9e77-4dda-93aa-c17fa92e4988) |
-
-## 🚀 Run locally
+## Run locally
 
 ### Prerequisites
 
-- Node.js 18+
+- Node.js 20+
 - MongoDB local instance or MongoDB Atlas
-- Git
+- Gemini API credentials for AI features
+- Razorpay credentials for payment features
 
 ### Clone
 
@@ -65,29 +76,15 @@ cd JarvisGPT
 ```bash
 cd server
 npm install
-```
-
-Create `server/.env` with the credentials required by the backend:
-
-```env
-MONGODB_URI=your_mongodb_connection_string
-JWT_SECRET=replace_with_a_long_random_secret
-GEMINI_API_KEY=your_gemini_api_key
-RAZORPAY_KEY_ID=your_razorpay_key_id
-RAZORPAY_KEY_SECRET=your_razorpay_key_secret
-```
-
-Never commit real credentials.
-
-Start the server:
-
-```bash
+cp .env.example .env
 npm start
 ```
 
+Configure the required variables in `server/.env`. Never commit real credentials.
+
 ### Frontend
 
-In a second terminal:
+In another terminal:
 
 ```bash
 cd client
@@ -95,12 +92,40 @@ npm install
 npm run dev
 ```
 
-Open the Vite URL shown in the terminal.
+The Vite development server normally runs on `http://localhost:5173`.
 
-## 🔐 Engineering considerations
+## API
 
-The project demonstrates several backend concerns beyond a basic chatbot: authentication, persistent user/credit state, third-party API integration and payment workflows. Future hardening should include automated tests for payment/webhook flows, rate limiting, structured logging, retries around external APIs and usage/cost observability.
+### Health check
 
-## 📌 Project scope
+```http
+GET /api/health
+```
 
-JarvisGPT is a portfolio project demonstrating full-stack integration with AI and payment APIs. Production use would require additional operational and security hardening.
+Returns a small JSON response confirming that the API process is alive.
+
+## Security notes
+
+- Razorpay webhooks verify the signature against the exact raw request body.
+- Payment verification is tied to the authenticated user's transaction.
+- Payment signatures use timing-safe comparison.
+- CORS is restricted to configured origins.
+- Real secrets belong in environment variables, never source control.
+- The API disables Express's `X-Powered-By` header and uses basic security headers.
+
+## Screenshots
+
+The repository contains screenshots demonstrating authentication, chat, credits, and payment flows.
+
+## Roadmap
+
+- Streaming AI responses
+- Rate limiting and abuse protection
+- Usage/token cost analytics
+- Automated backend tests and CI
+- Production observability
+- Provider fallback/retry strategy
+
+## Status
+
+Portfolio project. The current focus is reliability, security, and production-readiness rather than adding more UI features.
