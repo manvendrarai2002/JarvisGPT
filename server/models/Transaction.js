@@ -5,7 +5,8 @@ const transactionSchema = new mongoose.Schema({
   planId: { type: String, required: true },
   amount: { type: Number, required: true, min: 0 },
   credits: { type: Number, required: true, min: 0 },
-  razorpayOrderId: { type: String, required: true, unique: true, index: true },
+  // Sparse keeps existing historical transactions without an order ID valid.
+  razorpayOrderId: { type: String, unique: true, sparse: true, index: true },
   razorpayPaymentId: { type: String, unique: true, sparse: true, index: true },
   razorpaySignature: { type: String },
   isPaid: { type: Boolean, default: false, index: true },
